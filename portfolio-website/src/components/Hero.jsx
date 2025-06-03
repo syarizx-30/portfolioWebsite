@@ -1,9 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
-import { letters } from '../data/index'
+import { letters, professionTexts } from '../data/index'
 
 const Hero = () => {
   const [hoverLetter, setHoverLetter] = useState(null)
+  const [currentText, setCurrentText] = useState(professionTexts[0])
+  const [isRotating, setIsRotating] = useState(false)
+  let currentIndex = 0
+
+  useEffect(() => {
+    const interval =  setInterval(() => {
+      setIsRotating(true)
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % professionTexts.length
+        setCurrentText(professionTexts[currentIndex])
+        setIsRotating(false)
+      }, 300)
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
       <Navbar />
@@ -20,6 +36,13 @@ const Hero = () => {
             </span>
           ))}
         </span>
+          <span className="xl:text-6xl md:text-4xl text-2xl tracking-wider xl:py-4 py-2 overflow-hidden">
+          I'am 
+            <span className={`inline-block xl:w-[380px] md:w-[240px] w-[160px] lg:ml-6 ml-2 font-extrabold transform origin-left transition-transform duration-300 ease-out ${isRotating ? 'rotate-[100deg]' : 'rotate-0'}`}>
+            {currentText}
+            </span>
+          Web Developer
+          </span>
         </h1>
       </div>
     </div>
