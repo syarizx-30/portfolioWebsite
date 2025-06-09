@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
+import NavigationCircles from './NavigationCircles'
 import { letters, professionTexts, aboutText, socialIcons } from '../data/index'
 
 const Hero = () => {
@@ -76,6 +77,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      <NavigationCircles section="home"/>
     </div>
   )
 }
